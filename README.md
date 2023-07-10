@@ -15,14 +15,17 @@ Personalised HLA mapping to quantify HLA gene expression from scRNA and bulkRNA 
 # Introduction
 
 
-
+<br>
 
 
 # Requirements
 
+<br>
+
+* R4.1.0 or later
 
 * R packages 
-- R4.1.0 or later
+
 
 ```R
 # packages to install to build personalized reference :
@@ -43,9 +46,7 @@ conda install -c bioconda bedtools
 # or see here, https://bedtools.readthedocs.io/en/latest/content/installation.html 
 ```
 
-* Tools for aligning reads with scRNA-seq data
-
-cellranger-7.0.0 or later
+* Aligning reads with scRNA-seq data : cellranger-7.0.0 or later
 
 
 
@@ -64,24 +65,26 @@ wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_33/gencod
 
 
 
+<br>
 
 # Usage
 
+<br>
 
 
 ## 1. Prepare input data: HLA allelels 
 
+<br>
 
-1. HLA alleles 
+#### HLA alleles
 * see an [example input](./data/examples/example_input.txt)  
 - tab-delimited text file
 - First column - individual ids : will be used as a prefix of output file name
-- Second column - HLA alleles : HLA prefix with at least 2-field resolution (e.g., HLA-A*02:05:01, HLA-DQA1*03:01)
-
-2. Raw scRNA-seq data 
-- FASTQ OR BAM
+- Second column - HLA alleles : HLA prefix with at least 2-field resolution (e.g., HLA-A\*02:05:01, HLA-DQA1\*03:01)
 
 
+
+<br>
 
 ## 2. Build personalized reference and annotation 
 
@@ -100,7 +103,7 @@ To complete gene sequences and annotation, we extend both 5’ and 3’ sequence
 
 ### 2.1. Set a path of a package
 
-A path name should be `DIR_personalizedHLA`
+* *A path name should be __`DIR_personalizedHLA`__*
 
 ```R
 # where the package installed
@@ -112,7 +115,8 @@ DIR_personalizedHLA=paste0(yourpath, "/personalisedHLAmapping")
 
 ### 2.2. Gernerate personalized HLA reference and annotation for each individual
 
-A single `build_personalized_HLA_ref` 
+
+Just running a single script `build_personalized_HLA_ref` can provide personalized HLA reference. 
 
 ```R
 source( paste0(DIR_personalizedHLA, "/scripts/load_ref.R") )
@@ -172,6 +176,7 @@ bedtools maskfasta -fi GRCh38.primary_assembly.genome.fa -bed mask_these_genes.b
 gtf.primary <- rtracklayer::import(gzfile("gencode.v33.primary_assembly.annotation.gtf.gz"))
 hla_genes_to_mask <- read.table("output_directory/mask_these_genes.bed")
 
+
 HLA_genes.masked <- gtf.primary[!(gtf.primary$gene_name %in% hla_genes_to_mask$V4), ]
 rtracklayer::export(HLA_genes, "GRCh38.primary.HLA_masked.gtf"))
 ```
@@ -204,14 +209,22 @@ rtracklayer::export(refGTF.final,
 
 
 
+<br>
+<br>
 
 # Mapping
 
+<br>
 
 ## scRNA-seq mapping with Cell Ranger
 
 
-### Indexing: mkref
+### 1. Indexing: mkref
+
+
+<br>
+__*For each sample*,__
+
 ```bash
 #!/bin/bash
 
@@ -224,7 +237,7 @@ cellranger \
 
 ```
 
-### Mapping: count
+### 2. Mapping: count
 
 
 [here](./scripts/cellranger.count.sh)'s a script to run `cellranger count`.
@@ -237,10 +250,14 @@ cellranger \
 
 
 
+<br>
 
 ## bulkRAN-seq
 
+Depending on aligner...
 
+- Indexing reference : use personalized reference and annotation instead of standard reference. 
+- Mapping 
 
 
 

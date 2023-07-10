@@ -183,12 +183,14 @@ pre code {
 </div>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
+<p><br></p>
 </div>
 <div id="requirements" class="section level1">
 <h1>Requirements</h1>
+<p><br></p>
 <ul>
-<li>R packages</li>
-<li>R4.1.0 or later</li>
+<li><p>R4.1.0 or later</p></li>
+<li><p>R packages</p></li>
 </ul>
 <pre class="r"><code># packages to install to build personalized reference :
 
@@ -205,38 +207,33 @@ conda install -c bioconda bedtools
 
 # or see here, https://bedtools.readthedocs.io/en/latest/content/installation.html </code></pre>
 <ul>
-<li>Tools for aligning reads with scRNA-seq data</li>
-</ul>
-<p>cellranger-7.0.0 or later</p>
-<ul>
-<li>Primary reference and annotation: hg38 human genome</li>
+<li><p>Aligning reads with scRNA-seq data : cellranger-7.0.0 or later</p></li>
+<li><p>Primary reference and annotation: hg38 human genome</p></li>
 </ul>
 <pre class="bash"><code>wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_33/GRCh38.primary_assembly.genome.fa.gz</code></pre>
 <ul>
 <li>hg38 annotation version 33 (Ensembl 99)</li>
 </ul>
 <pre class="bash"><code>wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_33/gencode.v33.primary_assembly.annotation.gtf.gz</code></pre>
+<p><br></p>
 </div>
 <div id="usage" class="section level1">
 <h1>Usage</h1>
+<p><br></p>
 <div id="prepare-input-data-hla-allelels" class="section level2">
 <h2>1. Prepare input data: HLA allelels</h2>
-<ol style="list-style-type: decimal">
-<li>HLA alleles</li>
-</ol>
+<p><br></p>
+<div id="hla-alleles" class="section level4">
+<h4>HLA alleles</h4>
 <ul>
 <li>see an <a href="./data/examples/example_input.txt">example input</a><br />
 </li>
 <li>tab-delimited text file</li>
 <li>First column - individual ids : will be used as a prefix of output file name</li>
-<li>Second column - HLA alleles : HLA prefix with at least 2-field resolution (e.g., HLA-A<em>02:05:01, HLA-DQA1</em>03:01)</li>
+<li>Second column - HLA alleles : HLA prefix with at least 2-field resolution (e.g., HLA-A*02:05:01, HLA-DQA1*03:01)</li>
 </ul>
-<ol start="2" style="list-style-type: decimal">
-<li>Raw scRNA-seq data</li>
-</ol>
-<ul>
-<li>FASTQ OR BAM</li>
-</ul>
+<p><br></p>
+</div>
 </div>
 <div id="build-personalized-reference-and-annotation" class="section level2">
 <h2>2. Build personalized reference and annotation</h2>
@@ -247,14 +244,16 @@ conda install -c bioconda bedtools
 </ul>
 <div id="set-a-path-of-a-package" class="section level3">
 <h3>2.1. Set a path of a package</h3>
-<p>A path name should be <code>DIR_personalizedHLA</code></p>
+<ul>
+<li><em>A path name should be <strong><code>DIR_personalizedHLA</code></strong></em></li>
+</ul>
 <pre class="r"><code># where the package installed
 yourpath=&quot;./&quot;
 DIR_personalizedHLA=paste0(yourpath, &quot;/personalisedHLAmapping&quot;) </code></pre>
 </div>
 <div id="gernerate-personalized-hla-reference-and-annotation-for-each-individual" class="section level3">
 <h3>2.2. Gernerate personalized HLA reference and annotation for each individual</h3>
-<p>A single <code>build_personalized_HLA_ref</code></p>
+<p>Just running a single script <code>build_personalized_HLA_ref</code> can provide personalized HLA reference.</p>
 <pre class="r"><code>source( paste0(DIR_personalizedHLA, &quot;/scripts/load_ref.R&quot;) )
 source( paste0(DIR_personalizedHLA, &quot;/scripts/align_and_adjust_annotation.R&quot;) )
 source( paste0(DIR_personalizedHLA, &quot;/scripts/build_personalized_HLA_ref.R&quot;) )
@@ -293,6 +292,7 @@ bedtools maskfasta -fi GRCh38.primary_assembly.genome.fa -bed mask_these_genes.b
 gtf.primary &lt;- rtracklayer::import(gzfile(&quot;gencode.v33.primary_assembly.annotation.gtf.gz&quot;))
 hla_genes_to_mask &lt;- read.table(&quot;output_directory/mask_these_genes.bed&quot;)
 
+
 HLA_genes.masked &lt;- gtf.primary[!(gtf.primary$gene_name %in% hla_genes_to_mask$V4), ]
 rtracklayer::export(HLA_genes, &quot;GRCh38.primary.HLA_masked.gtf&quot;))</code></pre>
 </div>
@@ -318,15 +318,18 @@ refGTFfinal &lt;- c(refGTF.personalizedHLA, refSeq.primary.masked)
 rtracklayer::export(refGTF.final, 
                     &quot;output_directory/out/individual_ID/individual_ID.primaryMasked_and_HLA.gtf&quot;))
 </code></pre>
+<p><br> <br></p>
 </div>
 </div>
 </div>
 <div id="mapping" class="section level1">
 <h1>Mapping</h1>
+<p><br></p>
 <div id="scrna-seq-mapping-with-cell-ranger" class="section level2">
 <h2>scRNA-seq mapping with Cell Ranger</h2>
 <div id="indexing-mkref" class="section level3">
-<h3>Indexing: mkref</h3>
+<h3>1. Indexing: mkref</h3>
+<p><br> <strong><em>For each sample</em>,</strong></p>
 <pre class="bash"><code>#!/bin/bash
 
 cellranger \
@@ -338,15 +341,21 @@ cellranger \
 </code></pre>
 </div>
 <div id="mapping-count" class="section level3">
-<h3>Mapping: count</h3>
+<h3>2. Mapping: count</h3>
 <p><a href="./scripts/cellranger.count.sh">here</a>’s a script to run <code>cellranger count</code>.</p>
 <pre class="bash"><code>./scripts/cellranger.count.sh sample_name fastq_path path_of_personalised_ref out_prefix
 
 # ./scripts/cellranger.count.sh individual_ID fastq_path output_directory/ref.individual_ID out_prefix</code></pre>
+<p><br></p>
 </div>
 </div>
 <div id="bulkran-seq" class="section level2">
 <h2>bulkRAN-seq</h2>
+<p>Depending on aligner…</p>
+<ul>
+<li>Indexing reference : use personalized reference and annotation instead of standard reference.</li>
+<li>Mapping</li>
+</ul>
 <div id="contact" class="section level3">
 <h3>Contact</h3>
 <p>You are welcome to: - submit suggestions and bug-reports at: <a href="https://github.com/davenportlab/personalisedHLAmapping/issues" class="uri">https://github.com/davenportlab/personalisedHLAmapping/issues</a> - compose a friendly e-mail to: <a href="mailto:wl2@sanger.ac.uk" class="email">wl2@sanger.ac.uk</a></p>
