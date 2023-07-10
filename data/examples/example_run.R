@@ -15,8 +15,8 @@ build_personalized_HLA_ref(input_alleles, output_directory="./data/examples" )
 
 
 # 'make_personalized_HLA_ref' will produce 3 files
-# 1. fasta file of personalized HLA genes
-# 2. gtf file of personalized HLA genes
+# 1. fasta file of personalized HLA genes for each individual
+# 2. gtf file of personalized HLA genes for each individual
 # 3. bed file with HLA genes to mask primary fasta and gtf annotation
 
 

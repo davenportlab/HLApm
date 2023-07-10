@@ -71,7 +71,8 @@ align_and_adjust_annotation <- function(allele_name, output_directory="./", pref
 	strand <- as.character(anno$strand[1])
 	allele_name <- gsub("\\*", "\\_", allele_name)
 	allele_name <- gsub("\\:", "\\_", allele_name)
-	allele_name.2f <- gsub("(HLA\\-[A|B|C|DRB1|DQA1|DQB1|DPA1|DPB1|DOA|DOB|K|G]\\_\\d+\\_\\d+).*", "\\1", allele_name)
+	allele_name.2f <- gsub("(HLA\\-[A|B|C|DRB1|DQA1|DQB1|DPA1|DPB1|DOA|DOB|K|G]+\\_\\d+\\_\\d+).*", "\\1", 
+	                       allele_name)
 	
 	subject_seq_names <- gsub ( "[N|Q|L|A]$", "", names(subject_seq) )
 	

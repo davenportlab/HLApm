@@ -103,12 +103,16 @@ per_sample <- function(input_alleles, individual_ID="", output_directory="./"){
     drb_hap <- get_DRB_haplotypes(input_alleles, individual_ID=individual_ID)
     
     per.alleles <- unique( input_alleles[input_alleles$individual_ID==individual_ID, c("HLA_allele")] )
+    per.alleles.2f <- gsub("(HLA\\-[A|B|C|DRB1|DQA1|DQB1|DPA1|DPB1|DOA|DOB|K|G]+\\*\\d+\\:\\d+).*", "\\1", 
+                           per.alleles)
+    per.alleles.2f <- unique(per.alleles.2f)
+    
     
     sample.all.seq <- drb_hap[[1]]
     sample.all.gtf <- list()
     sample.all.gtf[[1]] <- drb_hap[[2]]
     i=1
-    for(a in per.alleles){
+    for(a in per.alleles.2f){
           out <- align_and_adjust_annotation (a, output_directory=tmp_dir, prefix= individual_ID)
           i=i+1
           tmp_gtf <- paste0(tmp_dir, "/", a, ".gtf") 

@@ -15,18 +15,17 @@ Personalised HLA mapping to quantify HLA gene expression from scRNA and bulkRNA 
 # Introduction
 
 
-- HLA alleles from 20 HLA genes are available. 
-"HLA-A"    "HLA-B"    "HLA-C"    "HLA-DMA"  "HLA-DMB"  "HLA-DOA"  "HLA-DOB"  "HLA-DPA1" "HLA-DPB1" "HLA-DQA1" "HLA-DQA2" "HLA-DQB1", "HLA-DRA"  "HLA-DRB1" "HLA-DRB3" "HLA-DRB4" "HLA-DRB5" "HLA-E"    "HLA-F"    "HLA-G"   
 
 
 
 # Requirements
 
 
-* R packages
+* R packages 
+- R4.1.0 or later
 
 ```R
-# packages to install to build personalized referece :
+# packages to install to build personalized reference :
 
 install.packages( "data.table", "dplyr", "stringr")
 
