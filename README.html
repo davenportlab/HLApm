@@ -299,21 +299,26 @@ rtracklayer::export(HLA_genes, &quot;GRCh38.primary.HLA_masked.gtf&quot;))</code
 <div id="get-final-personalized-genome-and-annotation-for-each-individual" class="section level3">
 <h3>2.4. Get final personalized genome and annotation for each individual</h3>
 <ul>
-<li><p>hg38 masked reference + personalized HLA genes for each individual</p></li>
-<li><p>Using R</p></li>
+<li>hg38 masked reference + personalized HLA genes for each individual</li>
 </ul>
-<pre class="r"><code># reference sequences
+<pre class="r"><code># reference sequences (final)
 
-refSeq.primary.masked &lt;- GRCh38.primary.HLA_masked.fa
-refSeq.personalizedHLA &lt;- output_directory/out/individual_ID/individual_ID.per.fa
+ref_primary &lt;- &quot;GRCh38.primary.HLA_masked.fa&quot; # generated from 2.3.
+ref_personalized_hla &lt;- &quot;output_directory/out/individual_ID/individual_ID.per.fa&quot; # generated from 2.2
 
+refSeq.primary.masked &lt;- readBStringSet(ref_primary)
+refSeq.personalizedHLA &lt;- readBStringSet(ref_personalized_hla)
+refSeq.final &lt;- c(primary, refSeq.personalizedHLA )
 Biostrings::writeXStringSet(refSeq.final, 
                             &quot;output_directory/out/individual_ID/individual_ID.primaryMasked_and_HLA.fa&quot; )
 
-# gtf
+# gtf (final)
 
-refGTF.primary.masked &lt;- rtracklayer::import(&quot;GRCh38.primary.HLA_masked.gtf&quot;)
-refGTF.personalizedHLA &lt;- rtracklayer::import(&quot;output_directory/out/individual_ID/individual_ID.per.gtf&quot;)
+gtf_primary &lt;- &quot;GRCh38.primary.HLA_masked.gtf&quot; # generated from 2.3.
+gtf_personalized_hla &lt;- &quot;output_directory/out/individual_ID/individual_ID.per.gtf&quot; # generated from 2.2
+
+refGTF.primary.masked &lt;- rtracklayer::import(gtf_primary) 
+refGTF.personalizedHLA &lt;- rtracklayer::import(gtf_personalized_hla) 
 refGTFfinal &lt;- c(refGTF.personalizedHLA, refSeq.primary.masked)
 rtracklayer::export(refGTF.final, 
                     &quot;output_directory/out/individual_ID/individual_ID.primaryMasked_and_HLA.gtf&quot;))
@@ -360,10 +365,10 @@ cellranger \
 <h3>Contact</h3>
 <p>You are welcome to: - submit suggestions and bug-reports at: <a href="https://github.com/davenportlab/personalisedHLAmapping/issues" class="uri">https://github.com/davenportlab/personalisedHLAmapping/issues</a> - compose a friendly e-mail to: <a href="mailto:wl2@sanger.ac.uk" class="email">wl2@sanger.ac.uk</a></p>
 </div>
+<div id="to-do.." class="section level3">
+<h3>to do..</h3>
+<p>Add HLA level 2 annotation</p>
 </div>
-<div id="to-do.." class="section level2">
-<h2>to do..</h2>
-<p>make directory tutorials, data (parsed imgt fa and gtf), example,</p>
 </div>
 </div>
 

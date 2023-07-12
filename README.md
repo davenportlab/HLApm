@@ -186,21 +186,27 @@ rtracklayer::export(HLA_genes, "GRCh38.primary.HLA_masked.gtf"))
 
 * hg38 masked reference + personalized HLA genes for each individual
 
-- Using R
+
 
 ```R
-# reference sequences
+# reference sequences (final)
 
-refSeq.primary.masked <- GRCh38.primary.HLA_masked.fa
-refSeq.personalizedHLA <- output_directory/out/individual_ID/individual_ID.per.fa
+ref_primary <- "GRCh38.primary.HLA_masked.fa" # generated from 2.3.
+ref_personalized_hla <- "output_directory/out/individual_ID/individual_ID.per.fa" # generated from 2.2
 
+refSeq.primary.masked <- readBStringSet(ref_primary)
+refSeq.personalizedHLA <- readBStringSet(ref_personalized_hla)
+refSeq.final <- c(primary, refSeq.personalizedHLA )
 Biostrings::writeXStringSet(refSeq.final, 
                             "output_directory/out/individual_ID/individual_ID.primaryMasked_and_HLA.fa" )
 
-# gtf
+# gtf (final)
 
-refGTF.primary.masked <- rtracklayer::import("GRCh38.primary.HLA_masked.gtf")
-refGTF.personalizedHLA <- rtracklayer::import("output_directory/out/individual_ID/individual_ID.per.gtf")
+gtf_primary <- "GRCh38.primary.HLA_masked.gtf" # generated from 2.3.
+gtf_personalized_hla <- "output_directory/out/individual_ID/individual_ID.per.gtf" # generated from 2.2
+
+refGTF.primary.masked <- rtracklayer::import(gtf_primary) 
+refGTF.personalizedHLA <- rtracklayer::import(gtf_personalized_hla) 
 refGTFfinal <- c(refGTF.personalizedHLA, refSeq.primary.masked)
 rtracklayer::export(refGTF.final, 
                     "output_directory/out/individual_ID/individual_ID.primaryMasked_and_HLA.gtf"))
@@ -270,7 +276,7 @@ You are welcome to:
 - compose a friendly e-mail to: wl2@sanger.ac.uk
 
 
-## to do..
-make directory tutorials, data (parsed imgt fa and gtf), example,
+### to do..
+Add HLA level 2 annotation
 
 

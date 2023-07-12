@@ -41,7 +41,7 @@ hla_to_mask <- read.table( paste0(DIR_personalizedHLA,
                                   "/data/references/hg38/Ensembl99.primary.12_HLA_genes.bed") )
 
 
-source("./scripts/DRB_haplotypes.R") 
+source(paste0(DIR_personalizedHLA, "/scripts/DRB_haplotypes.R") )
 print("Loading DRB genes ...")
 
 DRB_fa <- readDNAStringSet(file = paste0(DIR_personalizedHLA,

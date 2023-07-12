@@ -11,6 +11,7 @@ source( paste0(DIR_personalizedHLA, "/scripts/make_personalized_HLA_ref.R") )
 input_data <- paste0(DIR_personalizedHLA, "/data/examples/example_input.txt")
 input_alleles <- read.table(input_data, header=T)
 
+
 build_personalized_HLA_ref(input_alleles, output_directory="./data/examples" )
 
 
