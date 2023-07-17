@@ -3,6 +3,7 @@ library(Biostrings)
 library(stringr)
 library(DECIPHER)
 library(data.table)
+library(dplyr)
 
 # need to add a path of 'DIR_personalizedHLA' 
 

@@ -106,11 +106,12 @@ per_sample <- function(input_alleles, individual_ID="", output_directory="./"){
     per.alleles.2f <- gsub("(HLA\\-[A|B|C|DRB1|DQA1|DQB1|DPA1|DPB1|DOA|DOB|K|G]+\\*\\d+\\:\\d+).*", "\\1", 
                            per.alleles)
     per.alleles.2f <- unique(per.alleles.2f)
-    
+    #all_genes <- unique( gsub("(.*)\\*.*", "\\1", per.alleles.2f) )
     
     sample.all.seq <- drb_hap[[1]]
     sample.all.gtf <- list()
     sample.all.gtf[[1]] <- drb_hap[[2]]
+   
     i=1
     for(a in per.alleles.2f){
           out <- align_and_adjust_annotation (a, output_directory=tmp_dir, prefix= individual_ID)
@@ -126,15 +127,68 @@ per_sample <- function(input_alleles, individual_ID="", output_directory="./"){
           file.remove(tmp_gtf)
     }
     
+    sample.all.gtf <- do.call(c, sample.all.gtf)
+    
+    
     # combine them all
-    suppressWarnings ( rtracklayer::export ( do.call(c, sample.all.gtf),
+    new_seq_name=paste0("chr_personalised.", individual_ID)
+    tmp <- as.data.frame(sample.all.gtf)
+    
+    all_pers_alleles <- names(sample.all.seq)[order(names(sample.all.seq))]
+    
+    comb.sample.all.seq <- sample.all.seq[names(sample.all.seq)==all_pers_alleles[1]]
+    comb.sample.all.gtf <- sample.all.gtf[tmp$seqnames==all_pers_alleles[1] ]
+    
+    for( chr in all_pers_alleles[2:length(all_pers_alleles)] ){
+          print(chr)
+          s = sample.all.seq[names(sample.all.seq)==chr]
+          len_fa <- nchar(comb.sample.all.seq)
+          
+          g = sample.all.gtf[tmp$seqnames==chr ]
+          g@ranges@start <- as.integer( g@ranges@start + len_fa + 10 )
+          
+          comb.sample.all.seq <- paste0(comb.sample.all.seq, "NNNNNNNNNN" , s)
+          comb.sample.all.gtf <- c(comb.sample.all.gtf, g)
+    }
+    comb.sample.all.gtf@seqnames@values <- 
+      rep(new_seq_name, length(comb.sample.all.gtf@seqnames@values ) )
+ 
+
+    #tmp <- as.data.frame(comb.sample.all.gtf)
+    
+    suppressWarnings ( rtracklayer::export ( comb.sample.all.gtf,
                           paste0(tmp_dir, "/", individual_ID, ".per.gtf") ) )
     
+    ## adjust gene ranges
+    gtf <- rtracklayer::import( paste0(tmp_dir, 
+                                       "/", individual_ID, ".per.gtf") )
     
-    Biostrings::writeXStringSet(sample.all.seq, 
-                                paste0(tmp_dir, "/", individual_ID, ".per.fa") )
+    for(gene in unique(gtf$gene_name)){
+          #print(gene)
+          ir <- gtf[gtf$gene_name==gene & gtf$type=="gene"]
+          if(  length(ir) ==2 ) {
+                end_pos <- max( c( (ir@ranges@start[1] + ir@ranges@width[1]),
+                               (ir@ranges@start[2] + ir@ranges@width[2] ) ) )
+                wid <- as.integer (end_pos - min(ir@ranges@start)  + 10  )
+                ir[ir$gene_name==gene & ir$type=="gene"]@ranges@start <- 
+                  rep( min(ir@ranges@start), 2)
+                ir@ranges@width  <- rep(wid, 2)
+                
+                tmp1 <- gtf[gtf$gene_name!=gene | gtf$type!="gene"]
+                gtf <- c(ir[1], tmp1)
+          }
+    }
+    gtf <- gtf[order(gtf@ranges@start)]
+    suppressWarnings ( rtracklayer::export ( gtf,
+                                             paste0(tmp_dir, "/", individual_ID, ".per.gtf") ) )
+    
+    
+    # Biostrings::writeXStringSet(sample.all.seq, 
+    #                             paste0(tmp_dir, "/", individual_ID, ".per.fa") )
+    write.fasta(sequences=comb.sample.all.seq, 
+                names=new_seq_name,
+                file.out=paste0(tmp_dir, "/", individual_ID, ".per.fa") )
     
 }
-
 
 
