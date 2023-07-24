@@ -178,13 +178,15 @@ hla_genes_to_mask <- read.table("output_directory/mask_these_genes.bed")
 
 
 HLA_genes.masked <- gtf.primary[!(gtf.primary$gene_name %in% hla_genes_to_mask$V4), ]
-rtracklayer::export(HLA_genes, "GRCh38.primary.HLA_masked.gtf"))
+rtracklayer::export(HLA_genes.masked, “GRCh38.primary.HLA_masked.gtf”)
 ```
 
 
-### 2.4. Get final personalized genome and annotation for each individual
+### 2.4. Get final personalized genome and annotation 
 
-* hg38 masked reference + personalized HLA genes for each individual
+* __For each individual__, 
+- reference genome includes __hg38 HLA masked primary reference__ and __personalized HLA genes' sequences__.
+- annotation includes __gtf of hg38 annotation excluding HLA genes__ and __gtf of personalized HLA genes__.
 
 
 
@@ -196,7 +198,7 @@ ref_personalized_hla <- "output_directory/out/individual_ID/individual_ID.per.fa
 
 refSeq.primary.masked <- readBStringSet(ref_primary)
 refSeq.personalizedHLA <- readBStringSet(ref_personalized_hla)
-refSeq.final <- c(primary, refSeq.personalizedHLA )
+refSeq.final <- c(refSeq.primary.masked, refSeq.personalizedHLA )
 Biostrings::writeXStringSet(refSeq.final, 
                             "output_directory/out/individual_ID/individual_ID.primaryMasked_and_HLA.fa" )
 

@@ -294,12 +294,14 @@ hla_genes_to_mask &lt;- read.table(&quot;output_directory/mask_these_genes.bed&q
 
 
 HLA_genes.masked &lt;- gtf.primary[!(gtf.primary$gene_name %in% hla_genes_to_mask$V4), ]
-rtracklayer::export(HLA_genes, &quot;GRCh38.primary.HLA_masked.gtf&quot;))</code></pre>
+rtracklayer::export(HLA_genes.masked, “GRCh38.primary.HLA_masked.gtf”)</code></pre>
 </div>
-<div id="get-final-personalized-genome-and-annotation-for-each-individual" class="section level3">
-<h3>2.4. Get final personalized genome and annotation for each individual</h3>
+<div id="get-final-personalized-genome-and-annotation" class="section level3">
+<h3>2.4. Get final personalized genome and annotation</h3>
 <ul>
-<li>hg38 masked reference + personalized HLA genes for each individual</li>
+<li><strong>For each individual</strong>,</li>
+<li>reference genome includes <strong>hg38 HLA masked primary reference</strong> and <strong>personalized HLA genes’ sequences</strong>.</li>
+<li>annotation includes <strong>gtf of hg38 annotation excluding HLA genes</strong> and <strong>gtf of personalized HLA genes</strong>.</li>
 </ul>
 <pre class="r"><code># reference sequences (final)
 
@@ -308,7 +310,7 @@ ref_personalized_hla &lt;- &quot;output_directory/out/individual_ID/individual_I
 
 refSeq.primary.masked &lt;- readBStringSet(ref_primary)
 refSeq.personalizedHLA &lt;- readBStringSet(ref_personalized_hla)
-refSeq.final &lt;- c(primary, refSeq.personalizedHLA )
+refSeq.final &lt;- c(refSeq.primary.masked, refSeq.personalizedHLA )
 Biostrings::writeXStringSet(refSeq.final, 
                             &quot;output_directory/out/individual_ID/individual_ID.primaryMasked_and_HLA.fa&quot; )
 
