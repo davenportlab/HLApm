@@ -198,9 +198,10 @@ ref_personalized_hla <- "output_directory/out/individual_ID/individual_ID.per.fa
 
 refSeq.primary.masked <- readBStringSet(ref_primary)
 refSeq.personalizedHLA <- readBStringSet(ref_personalized_hla)
-refSeq.final <- c(refSeq.primary.masked, refSeq.personalizedHLA )
+refSeq.final <- c(refSeq.personalizedHLA, refSeq.primary.masked)
 Biostrings::writeXStringSet(refSeq.final, 
                             "output_directory/out/individual_ID/individual_ID.primaryMasked_and_HLA.fa" )
+
 
 # gtf (final)
 
@@ -209,7 +210,7 @@ gtf_personalized_hla <- "output_directory/out/individual_ID/individual_ID.per.gt
 
 refGTF.primary.masked <- rtracklayer::import(gtf_primary) 
 refGTF.personalizedHLA <- rtracklayer::import(gtf_personalized_hla) 
-refGTFfinal <- c(refGTF.personalizedHLA, refSeq.primary.masked)
+refGTFfinal <- c(refGTF.personalizedHLA, refGTF.primary.masked)
 rtracklayer::export(refGTF.final, 
                     "output_directory/out/individual_ID/individual_ID.primaryMasked_and_HLA.gtf"))
 
