@@ -10,7 +10,7 @@ library(dplyr)
 print("Loading IMGT GTF ...")
 
 imgt_gtf_fname <- gzfile( paste0(DIR_personalizedHLA, 
-                                 "/data/references/IMGT.3.52.0/two_field.imgt_allele_L1.renamed.gtf.gz"),
+                                 "/data/references/IMGT.3.52.0/two_field.imgt_allele.renamed.gtf.gz"),
                           'rt') 
 imgt_gtf <- read.table(imgt_gtf_fname, sep="\t", header=F)
 imgt_gtf$V2 <- "IMGT_3.52.0"
@@ -20,7 +20,7 @@ close(imgt_gtf_fname)
 print("Loading IMGT allele sequences ...")
 
 imgt_fa_fname <- gzfile( paste0(DIR_personalizedHLA,  
-                                "/data/references/IMGT.3.52.0/two_field.imgt_allele_L1.renamed.fa.gz"),
+                                "/data/references/IMGT.3.52.0/two_field.imgt_allele.renamed.fa.gz"),
                          'rt') 
 subject_seq <- suppressWarnings ( read.fasta(file = imgt_fa_fname) )
 close(imgt_fa_fname)
