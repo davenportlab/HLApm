@@ -114,7 +114,17 @@ per_sample <- function(input_alleles, individual_ID="", output_directory="./"){
    
     i=1
     for(a in per.alleles.2f){
-          out <- align_and_adjust_annotation (a, output_directory=tmp_dir, prefix= individual_ID)
+          print(a)
+          find_level <- allele_level[grep (gsub("[\\*|\\:]", "_", a), allele_level$allele),]
+          
+          print(paste0( "Allele level: ", find_level) )
+          
+          if(find_level$level=="L1" ){
+                out <- align_and_adjust_annotation (a, output_directory=tmp_dir, prefix= individual_ID)
+          }
+          if(find_level$level!="L1"){
+                out <- align_and_adjust_annotation_L234 (a, output_directory=tmp_dir, prefix= individual_ID)
+          }
           i=i+1
           tmp_gtf <- paste0(tmp_dir, "/", a, ".gtf") 
           write.table (out[[2]], tmp_gtf, sep="\t", quote=F, row.names = F, col.names=F)
@@ -124,7 +134,7 @@ per_sample <- function(input_alleles, individual_ID="", output_directory="./"){
           sample.all.gtf[[i]]$transcript_name <- gsub("transcript_", "", sample.all.gtf[[i]]$transcript_name)
           
           sample.all.seq <- c(sample.all.seq, out[[1]])
-          file.remove(tmp_gtf)
+          #file.remove(tmp_gtf)
     }
     
     sample.all.gtf <- do.call(c, sample.all.gtf)

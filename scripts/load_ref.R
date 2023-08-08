@@ -36,6 +36,31 @@ seq_chr6 <- toupper( c2s(seq_chr6[[1]]) )
 close(chr6_fname)
 print ( paste0("reference data loaded" ) )
 
+print("Loading IMGT exon sequences ...")
+exon_seq_fname <- gzfile( paste0(DIR_personalizedHLA, 
+                           "/data/references/IMGT.3.52.0/imgt_exon_seq.txt.gz"),
+                    'rt') 
+exon_seq <- read.table(exon_seq_fname)
+exon_seq$id <- gsub("(.*\\*\\d+\\:\\d+).*", "\\1", exon_seq$V1 )
+exon_seq$V1 <- gsub("\\*", "\\_", as.character(exon_seq$V1))
+exon_seq$V1 <- gsub("\\:", "\\_", exon_seq$V1)
+exon_seq$id <- gsub("\\*", "\\_", as.character(exon_seq$id))
+exon_seq$id <- gsub("\\:", "\\_", exon_seq$id)
+
+print("Loading alternative exon sequences ...")
+exon_alt_name <- gzfile( paste0(DIR_personalizedHLA, 
+                           "/data/references/IMGT.3.52.0/imgt_allele_L234.alternative_exons.txt.gz"),
+                          'rt') 
+exon_alt <- read.table(exon_alt_name)
+exon_alt$id <- gsub("(.*\\*\\d+\\:\\d+).*", "\\1", exon_alt$V1 )
+exon_alt$id <- gsub("[\\*|\\:]", "\\_", as.character(exon_alt$id))
+
+print("Loading allele levels ...")
+allele_level_name <- gzfile( paste0(DIR_personalizedHLA, 
+                                "/data/references/IMGT.3.52.0/allele_levels.txt.gz"),
+                         'rt') 
+allele_level <- read.table(allele_level_name, header = T)
+
 
 print("Loading HLA regions to mask ...")
 hla_to_mask <- read.table( paste0(DIR_personalizedHLA, 
@@ -66,6 +91,6 @@ pattern_anno.name <- gzfile(paste0(DIR_personalizedHLA,
 pattern_anno <- read.table(pattern_anno.name, header=T)
 close(pattern_anno.name)
 
-print("Finished: Roading HLA genes and their annotation from primary reference ...")
+print("Finished: Roading IMGT seqeunces, HLA genes and their annotation from primary reference ...")
 
 

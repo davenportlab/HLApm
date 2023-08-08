@@ -419,4 +419,234 @@ align_and_adjust_annotation <- function(allele_name, output_directory="./", pref
 }
 
 
+# allele_name="HLA-DRA*01:02"
+
+align_and_adjust_annotation_L234 <- function(allele_name, output_directory="./",  prefix="sample" ){
+    
+  # exon_seq : exon sequences from imgt data
+  # pattern_seq : ref_seq from chr6
+  # allele_name: name of  subject_seq 
+  # anno = annotation file of pattern seq (primary ref seq)
+
+  #############################################
+  ###
+  ### 1. replace exon sequences
+  ###
+  #############################################
+  
+  gene <- gsub("(HLA-.*)\\_\\d+\\_\\d+", "\\1", allele_name)    
+  gene <- gsub("^([A-Z].*)\\*\\d+.*", "\\1", allele_name)
+  print( paste0("HLA gene: ", gene) )
+  
+  anno <- pattern_anno[pattern_anno$gene_name==gene,]
+  
+  if(gene=="HLA-A"){
+    anno <- subset(anno, transcript_name=="HLA-A-202")
+  }
+  if(gene=="HLA-C"){
+    anno <- subset(anno, transcript_name=="HLA-C-201")
+  }
+  if(gene=="HLA-DMA"){
+    anno <- subset(anno, transcript_name=="HLA-DMA-202")
+  }
+  if( gene=="HLA-DQA1"){
+    # need to fix UTR region
+    anno <- subset( anno, transcript_name=="HLA-DQA1-201")
+  }
+  if( gene=="HLA-DRA"){
+    anno <- subset( anno, transcript_name=="HLA-DRA-201")
+  }
+  if( gene=="HLA-DQB1"){
+    anno <- subset( anno, transcript_name=="HLA-DQB1-201")
+  }
+  
+  
+  
+  strand <- as.character(anno$strand[1])
+  allele_name <- gsub("\\*", "\\_", allele_name)
+  allele_name <- gsub("\\:", "\\_", allele_name)
+  print(allele_name)
+  
+  # allele_exons <- exon_seq[grep(paste0(allele_name, "$"), as.character(exon_seq$id)),]
+  tmp_name <- gsub("(HLA\\-[A|B|C|DRA|DRB1|DQA1|DQB1|DPA1|DPB1|DMA|DMB|G|J|K]+\\_\\d+\\_\\d+).*", 
+                   "\\1", 
+                   allele_name)
+  print(tmp_name)
+  
+  allele_exons <- exon_seq[exon_seq$id==allele_name, ]
+  #print(paste0("test1:") )
+  #print(allele_exons)
+  
+  #allele_exons <- exon_seq[grep(paste0(allele_name), as.character(exon_seq$V1)),]
+  #print(paste0("test2:") )
+  #print(allele_exons)
+  
+  allele_exons <- allele_exons$V1[1]
+  #print(allele_exons)
+  allele_exons <- subset(exon_seq, V1==allele_exons)
+  #print(allele_exons)
+  
+  # check if there's alternative exons available
+  
+  add_exon_alt <- exon_alt[exon_alt$id==allele_name,]
+  if(nrow(add_exon_alt) >0){
+        add_exon_alt <- data.frame(exon_n= gsub(".*\\_e(\\d+)", "\\1", add_exon_alt$V3),
+                                   alt_allele=gsub("(.*)\\_e(\\d+)", "\\1", add_exon_alt$V3) )
+        add_exon_alt$alt_allele <- gsub("[\\*|\\:]", "\\_", add_exon_alt$alt_allele)
+        
+        for(i in nrow(add_exon_alt)){
+              tmp <- exon_seq[exon_seq$V1==add_exon_alt$alt_allele[i] & exon_seq$V2==add_exon_alt$exon_n[i], ]
+              allele_exons <- rbind(allele_exons, tmp)
+        }
+  }
+  allele_exons <- allele_exons[order(allele_exons$V2), ]
+  #print(allele_exons)
+  
+  
+  ref_seq <- pattern_seq.all[grep(gene, names(pattern_seq.all) )]
+  ref_seq <- toupper(c2s(ref_seq[[1]]))
+  nchar(ref_seq)
+  
+  
+  gtf_tmp <- c()
+  for(e in 1:nrow(allele_exons)){
+    print(e)
+    
+    seq1 <- pattern_seq.all[grep(gene, names(pattern_seq.all) )]
+    seq2<- toupper(allele_exons$V3[e])
+    seq1string <- toString (DNAString(toupper(c2s(seq1[[1]])) ) )
+    seq2string <- seq2
+    
+
+    
+    seqs <- DNAStringSet( c( seq1string , seq2string ) )
+    seqs
+    
+    if(strand=="-"){
+      seqs <- DNAStringSet( c(toupper(c2s(seq1[[1]])),
+                              toString(reverseComplement(DNAStringSet(seq2)) ) ) )
+    }
+    
+    aligned <- AlignSeqs(seqs, verbose = FALSE)
+    
+    aligned_pattern <- toString(aligned[1] )
+    if(nchar(aligned_pattern)!=nchar(ref_seq)){
+      print("check it, there is indel in alignmemt...")
+    }
+    
+    aligned_subject <- toString(aligned[2] )
+    aligned_subject <- gsub("(A|C|G|T)+", "0", aligned_subject)
+    
+    left <- nchar( gsub("^(.*)0(.*)" , "\\1", aligned_subject) )
+    right <- nchar( gsub("^(.*)0(.*)" , "\\2", aligned_subject) )
+    
+    substr(ref_seq, (left+1), (left+nchar(seq2 ) )) <- toString(seqs[2])
+    
+    
+    gtf_tmp <- rbind(gtf_tmp, 
+                     data.frame(exon_number=allele_exons$V2[e], start=(left+1), end=(nchar(aligned_pattern)-right) ) )
+  }
+  gtf_tmp$len <- gtf_tmp$end - gtf_tmp$start +1
+  
+  
+  
+  new_allele_seq2 <- DNAStringSet(ref_seq)
+  names(new_allele_seq2) <- paste0("chr_", allele_name)
+  
+  
+  ### save new allele sequence
+  # write.fasta(sequences = ref_seq, names = paste0("chr_", allele_exons$V1[1]), 
+  #             file.out = paste0(output_directory, "chr_", allele_exons$V1[1], ".fa"))
+  
+  
+  #globalAlign<- pairwiseAlignment(seq1string, seq2string, type="local-global")
+  #globalAlign
+  
+  
+  
+  #########################################
+  ###
+  ### 2. make a gtf
+  ###
+  ##########################################
+  
+  # chr_HLA-DQB1_06_09_01_01        HAVANA  UTR     1000    1771    .       -       .       gene_id HLA-DQB1_06_09_01_01; transcript_id trans_HLA-DQB1_06_09_01_01; gene_type Confirmed_Full_gDNA; gen
+  
+  anno2 <- anno
+  anno2$new_start <- anno2$new_start - 1
+  anno2$new_end <- anno2$new_end - 1
+  
+  for(i in 1:nrow(gtf_tmp)){
+    
+    anno2[anno2$exon_number==gtf_tmp$exon_number[i] & anno2$type=="exon",]$new_start <- gtf_tmp$start[i]
+    anno2[anno2$exon_number==gtf_tmp$exon_number[i] & anno2$type=="exon",]$new_end <- gtf_tmp$end[i]
+    
+  }
+  
+  
+  new_gtf <- data.frame(chr=paste0("chr_",allele_name),
+                        s="IMGT",
+                        type=anno2$type,
+                        start=anno2$new_start,
+                        end=anno2$new_end,
+                        n1=".",
+                        strand=anno2$strand,
+                        n2=".",
+                        desc=paste0("gene_id ", allele_exons$id[1], "; ",
+                                    "gene_name ", gene, "; ",
+                                    "transcript_id trans_", allele_exons$id[1], "; gene_type L2; ",
+                                    "transcript_name ", allele_exons$id[1], "; gene_type L2") )
+  
+  
+  
+  add_exon <- subset(new_gtf, type=="UTR")
+  add_exon$type <- "exon"
+  new_gtf <- rbind(new_gtf, add_exon)
+  new_gtf <- new_gtf[order(new_gtf$start),]
+  
+  comb_exon <- c()
+  exons <- subset(new_gtf, type=="exon")
+  end_pos=10000
+  b="no"
+  ex <- exons[1,]
+  for(e in 2:nrow(exons)){
+    #print(e)
+    #print(exons$V4[e])
+    #print(ex$V5)
+    if(exons$start[e] < ex$end | (exons$start[e] -1)==ex$end ){
+      comb_exon <- rbind(comb_exon,
+                         data.frame(ex[,1:4], exons[e,5:9]) )
+      b="ok"
+    }
+    else{
+      if(b!="ok"){
+        comb_exon <- rbind(comb_exon, ex)
+      }
+      b="no"
+    }
+    ex <- exons[e,]
+  }
+  if(b=="no"){
+    comb_exon <- rbind(comb_exon, ex)
+  }
+  
+  
+  new_gtf <- rbind(subset(new_gtf, type!="exon"),
+                   comb_exon)
+  new_gtf <- new_gtf[order(new_gtf$start, new_gtf$end),]
+  gene_ <- subset(new_gtf, type=="transcript")
+  gene_$type <- "gene"
+  new_gtf <- rbind(new_gtf, gene_)
+  
+  
+  # write.table(new_gtf, 
+  #             paste0(output_directory,  "chr_", allele_exons$V1[1], ".gtf"), 
+  #             sep="\t", quote=F, row.names=F, col.names=F)
+  # 
+  
+  output <- list(new_allele_seq2, new_gtf)
+  return(output)
+  
+}
+
 

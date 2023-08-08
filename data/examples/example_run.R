@@ -13,6 +13,7 @@ input_alleles <- read.table(input_data, header=T)
 
 
 build_personalized_HLA_ref(input_alleles, output_directory="./data/examples" )
+# build_personalized_HLA_ref(input_alleles, output_directory="/lustre/scratch126/humgen/teams/davenport/ws/ref/test" )
 
 
 # 'make_personalized_HLA_ref' will produce 3 files
