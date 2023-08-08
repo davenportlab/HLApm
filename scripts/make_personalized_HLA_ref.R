@@ -134,7 +134,8 @@ per_sample <- function(input_alleles, individual_ID="", output_directory="./"){
           sample.all.gtf[[i]]$transcript_name <- gsub("transcript_", "", sample.all.gtf[[i]]$transcript_name)
           
           sample.all.seq <- c(sample.all.seq, out[[1]])
-          #file.remove(tmp_gtf)
+          # remove gtf
+          file.remove(tmp_gtf)
     }
     
     sample.all.gtf <- do.call(c, sample.all.gtf)

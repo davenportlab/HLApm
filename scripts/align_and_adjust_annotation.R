@@ -420,7 +420,7 @@ align_and_adjust_annotation <- function(allele_name, output_directory="./", pref
 
 
 # allele_name="HLA-DRA*01:02"
-
+# allele_name="HLA-DPA1*01:33"
 align_and_adjust_annotation_L234 <- function(allele_name, output_directory="./",  prefix="sample" ){
     
   # exon_seq : exon sequences from imgt data

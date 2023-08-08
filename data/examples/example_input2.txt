@@ -6,12 +6,12 @@ individual_c	HLA-B*49:01:01
 individual_c	HLA-C*07:01:01
 individual_c	HLA-C*16:01:01
 individual_c	HLA-DPA1*01:03:01
-individual_c	HLA-DPA1*02:02:02
+individual_c	HLA-DPA1*01:33:01
 individual_c	HLA-DPB1*18:01
 individual_c	HLA-DPB1*01:01:01
 individual_c	HLA-DQA1*01:02:01
 individual_c	HLA-DQA1*04:01:01
-individual_c	HLA-DQB1*04:02:01
+individual_c	HLA-DQB1*06:352
 individual_c	HLA-DQB1*06:02:01
 individual_c	HLA-DRB1*03:02:01
 individual_c	HLA-DRB1*15:03:01
