@@ -163,7 +163,8 @@ To complete gene sequences and annotation, we extend both 5’ and 3’ sequence
 
 ### 2.1. Set a path of a package
 
-* *Define a working directory with a name __`DIR_personalizedHLA`__*
+* *Set a path of a package with a name __`DIR_personalizedHLA`__*
+* a directory of `scripts` should be under the `DIR_personalizedHLA`
 
 ```R
 # where the package installed
