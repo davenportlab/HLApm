@@ -259,7 +259,7 @@ conda install -c bioconda bedtools
 </ul>
 <p>        <strong>- make sure that you use the same version of IMGT/HLA data for running arcasHLA</strong></p>
 <p>        <strong>- add <code>--single</code>flag for single-end reads (only trascript sequences as input, R2)</strong></p>
-<p>        <strong>- here’s <a href="./data/examples/arcasHLA.md">simple description</a> how to run arcasHLA.</strong></p>
+<p>        <strong>- here’s <a href="./data/examples/arcasHLA.md">simple procedure</a> how to run arcasHLA.</strong></p>
 </div>
 <div id="with-bulk-rna-seq" class="section level4">
 <h4>with bulk-RNA seq</h4>
@@ -290,7 +290,7 @@ conda install -c bioconda bedtools
 <div id="set-a-path-of-a-package" class="section level3">
 <h3>2.1. Set a path of a package</h3>
 <ul>
-<li><em>A path name should be <strong><code>DIR_personalizedHLA</code></strong></em></li>
+<li><em>Define a working directory with a name <strong><code>DIR_personalizedHLA</code></strong></em></li>
 </ul>
 <pre class="r"><code># where the package installed
 yourpath=&quot;./&quot;
@@ -382,7 +382,8 @@ rtracklayer::export(refGTF.final,
 <h2>scRNA-seq mapping with Cell Ranger</h2>
 <div id="indexing-mkref" class="section level3">
 <h3>1. Indexing: mkref</h3>
-<p><br> <strong><em>For each sample</em>,</strong></p>
+<p><br></p>
+<p><strong><em>For each sample</em>,</strong></p>
 <pre class="bash"><code>#!/bin/bash
 
 cellranger \

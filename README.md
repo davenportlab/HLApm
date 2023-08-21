@@ -121,7 +121,7 @@ Please make sure if you have a right input format
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__- add `--single`flag for single-end reads (only trascript sequences as input, R2)__
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__- here's [simple description](./data/examples/arcasHLA.md) how to run arcasHLA.__
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__- here's [simple procedure](./data/examples/arcasHLA.md) how to run arcasHLA.__
 
 
 
@@ -163,7 +163,7 @@ To complete gene sequences and annotation, we extend both 5’ and 3’ sequence
 
 ### 2.1. Set a path of a package
 
-* *A path name should be __`DIR_personalizedHLA`__*
+* *Define a working directory with a name __`DIR_personalizedHLA`__*
 
 ```R
 # where the package installed
@@ -292,6 +292,7 @@ rtracklayer::export(refGTF.final,
 
 
 <br>
+
 __*For each sample*,__
 
 ```bash
