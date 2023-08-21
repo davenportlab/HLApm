@@ -17,6 +17,17 @@ Personalised HLA mapping to quantify HLA gene expression from scRNA and bulkRNA 
 
 <br>
 
+### Simulation of mapping
+
+<img src="./images/simulation_1.png" width="600">
+
+
+
+
+def: mapping on conventional reference sequences 
+
+per: mapping on personalized reference sequuences
+
 
 # Requirements
 
@@ -76,13 +87,62 @@ wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_33/gencod
 
 <br>
 
-#### HLA alleles
+## HLA alleles
+
+## If you already have HLA alleles for each individual 
+
+Please make sure if you have a right input format
+
 * see an [example input](./data/examples/example_input.txt)  
 - tab-delimited text file
 - First column - individual ids : will be used as a prefix of output file name
 - Second column - HLA alleles : HLA prefix with at least 2-field resolution (e.g., HLA-A\*02:05:01, HLA-DQA1\*03:01)
 
 
+
+## If you need to call HLA alleles
+
+
+
+#### with array data
+
+- [HIBAG](https://bioconductor.org/packages/release/bioc/html/HIBAG.html) :  [Here](https://hibag.s3.amazonaws.com/hlares_index.html), there are pre-fit models for different ancestry / Multi-ethnic models specific to a genotyping platform 
+
+
+
+
+
+#### with scRNA-seq
+
+
+- [arcasHLA](https://github.com/RabadanLab/arcasHLA)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__- make sure that you use the same version of IMGT/HLA data for running arcasHLA__
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__- add `--single`flag for single-end reads (only trascript sequences as input, R2)__
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__- here's [simple description](./data/examples/arcasHLA.md) how to run arcasHLA.__
+
+
+
+#### with bulk-RNA seq
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__*make sure that you use the same version of IMGT/HLA data for running arcasHLA*__
+
+- [arcasHLA](https://github.com/RabadanLab/arcasHLA)
+
+
+
+
+#### with whole genome seqeuncing (WGS) data
+
+- [HLA-LA](https://github.com/DiltheyLab/HLA-LA)
+- [HLAscan](https://github.com/SyntekabioTools/HLAscan)
+- [Kourami](https://github.com/Kingsford-Group/Kourami)
+- etc.
+
+- [Michigan Imputation Server](https://imputationserver.readthedocs.io/en/latest/) : a large (n=21,546) HLA reference panel spanning five global populations based on ~20,000 whole-genome sequencing dat
 
 <br>
 
