@@ -290,7 +290,7 @@ conda install -c bioconda bedtools
 <div id="set-a-path-of-a-package" class="section level3">
 <h3>2.1. Set a path of a package</h3>
 <ul>
-<li><em>Set a path of a package with a name <strong><code>DIR_personalizedHLA</code></strong></em></li>
+<li><em>Set a path of this package with a name <strong><code>DIR_personalizedHLA</code></strong></em></li>
 <li>a directory of <code>scripts</code> should be under the <code>DIR_personalizedHLA</code></li>
 </ul>
 <pre class="r"><code># where the package installed
@@ -303,8 +303,10 @@ DIR_personalizedHLA=paste0(yourpath, &quot;/personalisedHLAmapping&quot;) </code
 <pre class="r"><code>source( paste0(DIR_personalizedHLA, &quot;/scripts/load_ref.R&quot;) )
 source( paste0(DIR_personalizedHLA, &quot;/scripts/align_and_adjust_annotation.R&quot;) )
 source( paste0(DIR_personalizedHLA, &quot;/scripts/build_personalized_HLA_ref.R&quot;) )
-
-# reading input alleles
+</code></pre>
+<p>All resource for building references loaded !</p>
+<p>Next, read input alleles.</p>
+<pre class="r"><code># reading input alleles
 input_alleles &lt;- read.table(paste0(DIR_personalizedHLA, 
                                   &quot;/data/examples/example_input.txt&quot;), head=T)
 

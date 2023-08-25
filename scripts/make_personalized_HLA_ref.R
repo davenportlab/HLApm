@@ -108,14 +108,12 @@ per_sample <- function(input_alleles, individual_ID="", output_directory="./"){
     per.alleles.2f <- unique(per.alleles.2f)
     #all_genes <- unique( gsub("(.*)\\*.*", "\\1", per.alleles.2f) )
     
-    sample.all.seq <- drb_hap[[1]]
     sample.all.gtf <- list()
-    sample.all.gtf[[1]] <- drb_hap[[2]]
-   
-    i=1
+    i=0
     for(a in per.alleles.2f){
           print(a)
-          find_level <- allele_level[grep (gsub("[\\*|\\:]", "_", a), allele_level$allele),]
+          find_level <- allele_level[ grep(paste0( gsub("[\\*|\\:]", "_", a), "_" ), 
+                                           paste0(allele_level$allele, "_") ) ,]
           
           print(paste0( "Allele level: ", find_level) )
           
@@ -125,6 +123,7 @@ per_sample <- function(input_alleles, individual_ID="", output_directory="./"){
           if(find_level$level!="L1"){
                 out <- align_and_adjust_annotation_L234 (a, output_directory=tmp_dir, prefix= individual_ID)
           }
+          
           i=i+1
           tmp_gtf <- paste0(tmp_dir, "/", a, ".gtf") 
           write.table (out[[2]], tmp_gtf, sep="\t", quote=F, row.names = F, col.names=F)
@@ -133,10 +132,26 @@ per_sample <- function(input_alleles, individual_ID="", output_directory="./"){
           sample.all.gtf[[i]]$transcript_id <- gsub("trans_", "", sample.all.gtf[[i]]$transcript_id)
           sample.all.gtf[[i]]$transcript_name <- gsub("transcript_", "", sample.all.gtf[[i]]$transcript_name)
           
-          sample.all.seq <- c(sample.all.seq, out[[1]])
+          if(i==1){
+                sample.all.seq <- out[[1]]
+          }
+          if(i>1){
+                sample.all.seq <- c(sample.all.seq, out[[1]])
+          }
+          
           # remove gtf
           file.remove(tmp_gtf)
     }
+    
+    ## add DRB_paralogous
+    #if(drb_hap=="no_DRB_paralogous_genes"){}
+    
+    if(drb_hap!="no_DRB_paralogous_genes"){
+      i=i+1
+      sample.all.seq <-  c(sample.all.seq, drb_hap[[1]] )
+      sample.all.gtf[[i]] <- drb_hap[[2]]
+    }
+    
     
     sample.all.gtf <- do.call(c, sample.all.gtf)
     

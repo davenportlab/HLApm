@@ -163,7 +163,7 @@ To complete gene sequences and annotation, we extend both 5’ and 3’ sequence
 
 ### 2.1. Set a path of a package
 
-* *Set a path of a package with a name __`DIR_personalizedHLA`__*
+* *Set a path of this package with a name __`DIR_personalizedHLA`__*
 * a directory of `scripts` should be under the `DIR_personalizedHLA`
 
 ```R
@@ -184,6 +184,13 @@ source( paste0(DIR_personalizedHLA, "/scripts/load_ref.R") )
 source( paste0(DIR_personalizedHLA, "/scripts/align_and_adjust_annotation.R") )
 source( paste0(DIR_personalizedHLA, "/scripts/build_personalized_HLA_ref.R") )
 
+```
+
+All resource for building references loaded ! 
+
+Next, read input alleles. 
+
+```R
 # reading input alleles
 input_alleles <- read.table(paste0(DIR_personalizedHLA, 
                                   "/data/examples/example_input.txt"), head=T)
