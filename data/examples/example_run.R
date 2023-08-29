@@ -8,7 +8,7 @@ source( paste0(DIR_personalizedHLA, "/scripts/align_and_adjust_annotation.R") )
 source( paste0(DIR_personalizedHLA, "/scripts/make_personalized_HLA_ref.R") )
 
 
-input_data <- paste0(DIR_personalizedHLA, "/data/examples/example_input.txt")
+input_data <- paste0(DIR_personalizedHLA, "/data/examples/example_input3.txt")
 input_alleles <- read.table(input_data, header=T)
 
 

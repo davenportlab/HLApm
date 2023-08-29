@@ -146,7 +146,8 @@ per_sample <- function(input_alleles, individual_ID="", output_directory="./"){
     ## add DRB_paralogous
     #if(drb_hap=="no_DRB_paralogous_genes"){}
     
-    if(drb_hap!="no_DRB_paralogous_genes"){
+    #if(drb_hap!="no_DRB_paralogous_genes"){
+    if(length(drb_hap)==2){
       i=i+1
       sample.all.seq <-  c(sample.all.seq, drb_hap[[1]] )
       sample.all.gtf[[i]] <- drb_hap[[2]]

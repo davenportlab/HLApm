@@ -13,5 +13,5 @@ individual_c	HLA-DQA1*01:02:01
 individual_c	HLA-DQA1*04:01:01
 individual_c	HLA-DQB1*06:352
 individual_c	HLA-DQB1*06:02:01
-individual_c	HLA-DRB1*01:01:01
+individual_c	HLA-DRB1*15:02
 individual_c	HLA-DRB1*01:01:01
