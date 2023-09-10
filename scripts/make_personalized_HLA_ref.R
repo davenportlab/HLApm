@@ -18,6 +18,7 @@ build_personalized_HLA_ref <- function(input_alleles, output_directory="./" ){
     HLA_genes <- unique( gsub("(.*)\\*.*", "\\1", input_alleles$HLA_allele) )
     print(paste0(length(HLA_genes),  " HLA genes found" ))
     
+    print("##################################################")
     print("### important: ")
     print(paste0( (length(HLA_genes)+1), " HLA genes (HLA-DRB5, ", 
                 paste0(HLA_genes, collapse = ", "),  
@@ -100,7 +101,13 @@ per_sample <- function(input_alleles, individual_ID="", output_directory="./"){
                    recursive=T)
     }
     
+    print("##################################################")
+    print(paste0("### DRB paralogous genes of sample '", individual_ID, "'"))
     drb_hap <- get_DRB_haplotypes(input_alleles, individual_ID=individual_ID)
+    
+
+    print("##################################################")
+    print(paste0("### Generating allele sequences and adjusting gene annotation"))
     
     per.alleles <- unique( input_alleles[input_alleles$individual_ID==individual_ID, c("HLA_allele")] )
     per.alleles.2f <- gsub("(HLA\\-[A|B|C|DRB1|DQA1|DQB1|DPA1|DPB1|DOA|DOB|K|G]+\\*\\d+\\:\\d+).*", "\\1", 
@@ -111,9 +118,15 @@ per_sample <- function(input_alleles, individual_ID="", output_directory="./"){
     sample.all.gtf <- list()
     i=0
     for(a in per.alleles.2f){
-          print(a)
-          find_level <- allele_level[ grep(paste0( gsub("[\\*|\\:]", "_", a), "_" ), 
-                                           paste0(allele_level$allele, "_") ) ,]
+          print("--------------------------------------------------")
+          print(paste0("### allele: ", a))
+
+          allele_level_2 <- allele_level
+          allele_level_2$allele <- gsub("(.*\\d+)[A-Z]$", "\\1", 
+                                 allele_level_2$allele)
+          
+          find_level <- allele_level_2[ grep(paste0( gsub("[\\*|\\:]", "_", a), "_" ), 
+                                           paste0(allele_level_2$allele, "_") ) ,]
           
           print(paste0( "Allele level: ", find_level) )
           
@@ -153,9 +166,12 @@ per_sample <- function(input_alleles, individual_ID="", output_directory="./"){
       sample.all.gtf[[i]] <- drb_hap[[2]]
     }
     
-    
     sample.all.gtf <- do.call(c, sample.all.gtf)
     
+    
+    print("--------------------------------------------------")
+    print("##################################################")
+    print("### Combining alleles seqeunces and annotation")
     
     # combine them all
     new_seq_name=paste0("chr_personalised.", individual_ID)
