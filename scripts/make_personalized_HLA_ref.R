@@ -110,7 +110,7 @@ per_sample <- function(input_alleles, individual_ID="", output_directory="./"){
     print(paste0("### Generating allele sequences and adjusting gene annotation"))
     
     per.alleles <- unique( input_alleles[input_alleles$individual_ID==individual_ID, c("HLA_allele")] )
-    per.alleles.2f <- gsub("(HLA\\-[A|B|C|DRB1|DQA1|DQB1|DPA1|DPB1|DOA|DOB|K|G]+\\*\\d+\\:\\d+).*", "\\1", 
+    per.alleles.2f <- gsub("(HLA\\-[A|B|C|DRB1|DQA1|DQB1|DPA1|DPB1|DOA|DOB|K|G|E|F]+\\*\\d+\\:\\d+).*", "\\1", 
                            per.alleles)
     per.alleles.2f <- unique(per.alleles.2f)
     #all_genes <- unique( gsub("(.*)\\*.*", "\\1", per.alleles.2f) )
