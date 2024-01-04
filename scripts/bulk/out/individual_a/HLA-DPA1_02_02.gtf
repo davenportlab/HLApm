@@ -1,0 +1,19 @@
+##gff-version 2
+##source-version rtracklayer 1.54.0
+##date 2024-01-04
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	gene	1008	17156	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1";
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	UTR	1008	1786	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01";
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	transcript	1008	17156	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01"; transcript_type "MHC_transcript";
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	exon	1008	1786	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01";
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	UTR	5102	5116	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01";
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	exon	5102	5268	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01"; exon_number "4"; exon_id "HLA-DPA1_02_02_02_01_L1_e4"
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	CDS	5114	5268	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01"; exon_number "4"; exon_id "HLA-DPA1_02_02_02_01_L1_e4"
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	CDS	5483	5764	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01"; exon_number "3"; exon_id "HLA-DPA1_02_02_02_01_L1_e3"
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	exon	5483	5764	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01"; exon_number "3"; exon_id "HLA-DPA1_02_02_02_01_L1_e3"
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	CDS	6105	6350	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01"; exon_number "2"; exon_id "HLA-DPA1_02_02_02_01_L1_e2"
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	exon	6105	6350	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01"; exon_number "2"; exon_id "HLA-DPA1_02_02_02_01_L1_e2"
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	CDS	9917	10016	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01"; exon_number "1"; exon_id "HLA-DPA1_02_02_02_01_L1_e1"
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	exon	9917	10115	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01";
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	UTR	10017	10115	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01";
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	UTR	17126	17156	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01";
+chr_HLA-DPA1_02_02_02_01	IMGT_3.52.0	exon	17126	17156	.	-	.	gene_id "IMGT.HLA-DPA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DPA1"; transcript_id "HLA-DPA1_02_02_02_01"; transcript_name "HLA-DPA1_02_02_02_01";

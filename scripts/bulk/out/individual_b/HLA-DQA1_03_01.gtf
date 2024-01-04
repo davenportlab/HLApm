@@ -1,0 +1,17 @@
+##gff-version 2
+##source-version rtracklayer 1.54.0
+##date 2024-01-04
+chr_HLA-DQA1_03_01_01_01	IMGT_3.52.0	gene	1008	7229	.	+	.	gene_id "IMGT.HLA-DQA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DQA1";
+chr_HLA-DQA1_03_01_01_01	IMGT_3.52.0	UTR	1008	1060	.	+	.	gene_id "IMGT.HLA-DQA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DQA1"; transcript_id "HLA-DQA1_03_01_01_01"; transcript_name "HLA-DQA1_03_01_01_01";
+chr_HLA-DQA1_03_01_01_01	IMGT_3.52.0	transcript	1008	7229	.	+	.	gene_id "IMGT.HLA-DQA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DQA1"; transcript_id "HLA-DQA1_03_01_01_01"; transcript_name "HLA-DQA1_03_01_01_01"; transcript_type "MHC_transcript";
+chr_HLA-DQA1_03_01_01_01	IMGT_3.52.0	exon	1008	1142	.	+	.	gene_id "IMGT.HLA-DQA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DQA1"; transcript_id "HLA-DQA1_03_01_01_01"; transcript_name "HLA-DQA1_03_01_01_01"; exon_number "1"; exon_id "HLA-DQA1_03_01_01_01_L1_e1"
+chr_HLA-DQA1_03_01_01_01	IMGT_3.52.0	CDS	1061	1142	.	+	.	gene_id "IMGT.HLA-DQA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DQA1"; transcript_id "HLA-DQA1_03_01_01_01"; transcript_name "HLA-DQA1_03_01_01_01"; exon_number "1"; exon_id "HLA-DQA1_03_01_01_01_L1_e1"
+chr_HLA-DQA1_03_01_01_01	IMGT_3.52.0	CDS	4840	5088	.	+	.	gene_id "IMGT.HLA-DQA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DQA1"; transcript_id "HLA-DQA1_03_01_01_01"; transcript_name "HLA-DQA1_03_01_01_01"; exon_number "2"; exon_id "HLA-DQA1_03_01_01_01_L1_e2"
+chr_HLA-DQA1_03_01_01_01	IMGT_3.52.0	exon	4840	5088	.	+	.	gene_id "IMGT.HLA-DQA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DQA1"; transcript_id "HLA-DQA1_03_01_01_01"; transcript_name "HLA-DQA1_03_01_01_01"; exon_number "2"; exon_id "HLA-DQA1_03_01_01_01_L1_e2"
+chr_HLA-DQA1_03_01_01_01	IMGT_3.52.0	CDS	5534	5815	.	+	.	gene_id "IMGT.HLA-DQA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DQA1"; transcript_id "HLA-DQA1_03_01_01_01"; transcript_name "HLA-DQA1_03_01_01_01"; exon_number "3"; exon_id "HLA-DQA1_03_01_01_01_L1_e3"
+chr_HLA-DQA1_03_01_01_01	IMGT_3.52.0	exon	5534	5815	.	+	.	gene_id "IMGT.HLA-DQA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DQA1"; transcript_id "HLA-DQA1_03_01_01_01"; transcript_name "HLA-DQA1_03_01_01_01"; exon_number "3"; exon_id "HLA-DQA1_03_01_01_01_L1_e3"
+chr_HLA-DQA1_03_01_01_01	IMGT_3.52.0	CDS	6163	6317	.	+	.	gene_id "IMGT.HLA-DQA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DQA1"; transcript_id "HLA-DQA1_03_01_01_01"; transcript_name "HLA-DQA1_03_01_01_01"; exon_number "4"; exon_id "HLA-DQA1_03_01_01_01_L1_e4"
+chr_HLA-DQA1_03_01_01_01	IMGT_3.52.0	exon	6163	6337	.	+	.	gene_id "IMGT.HLA-DQA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DQA1"; transcript_id "HLA-DQA1_03_01_01_01"; transcript_name "HLA-DQA1_03_01_01_01";
+chr_HLA-DQA1_03_01_01_01	IMGT_3.52.0	UTR	6315	6337	.	+	.	gene_id "IMGT.HLA-DQA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DQA1"; transcript_id "HLA-DQA1_03_01_01_01"; transcript_name "HLA-DQA1_03_01_01_01";
+chr_HLA-DQA1_03_01_01_01	IMGT_3.52.0	UTR	6497	7229	.	+	.	gene_id "IMGT.HLA-DQA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DQA1"; transcript_id "HLA-DQA1_03_01_01_01"; transcript_name "HLA-DQA1_03_01_01_01";
+chr_HLA-DQA1_03_01_01_01	IMGT_3.52.0	exon	6497	7229	.	+	.	gene_id "IMGT.HLA-DQA1"; gene_type "Confirmed_Full_gDNA"; gene_name "HLA-DQA1"; transcript_id "HLA-DQA1_03_01_01_01"; transcript_name "HLA-DQA1_03_01_01_01";

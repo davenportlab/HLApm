@@ -5,8 +5,8 @@ Personalised HLA mapping to quantify HLA gene expression from scRNA and bulkRNA 
 
 * [Introduction](#Introduction)
 * [Requirements](#Requirements)
-* [Usage for scRNA-seq data](https://github.com/davenportlab/HLApm/docs/scRNA.md)
-* [Usage for bulkRNA-seq data](https://github.com/davenportlab/HLApm/docs/bulkRNA.md)
+* [Usage for scRNA-seq data](./docs/scRNA.md)
+* [Usage for bulkRNA-seq data](./docs/bulkRNA.md)
 * [Contact](#contact)
 
 
@@ -84,7 +84,9 @@ wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_33/gencod
 ### Contact
 
 You are welcome to:
+
 - submit suggestions and bug-reports at: https://github.com/davenportlab/HLApm/issues
+
 - compose a friendly e-mail to: wl2@sanger.ac.uk
 
 
