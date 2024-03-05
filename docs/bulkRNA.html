@@ -171,12 +171,10 @@ pre code {
 </div>
 
 
-<div id="input-data" class="section level2">
-<h2>1. input data</h2>
-<p><br></p>
-</div>
+<div id="build-hla-personalized-reference." class="section level1">
+<h1>1.Build HLA personalized reference.</h1>
 <div id="set-a-path-of-a-package" class="section level2">
-<h2>2. Set a path of a package</h2>
+<h2>1.1. Set a path of a package</h2>
 <ul>
 <li><em>Set a path of this package with a name <strong><code>DIR_personalizedHLA</code></strong></em></li>
 <li>a directory of <code>scripts</code> should be under the <code>DIR_personalizedHLA</code></li>
@@ -187,7 +185,7 @@ DIR_personalizedHLA=paste0(yourpath, &quot;/personalisedHLAmapping&quot;) </code
 <p><br></p>
 </div>
 <div id="load-functions" class="section level2">
-<h2>3. Load functions</h2>
+<h2>1.2. Load functions</h2>
 <p>Just running a single script <code>build_personalized_HLA_ref</code> can provide personalized HLA reference.</p>
 <pre class="r"><code>source( paste0(DIR_personalizedHLA, &quot;/scripts/load_ref.R&quot;) )
 source( paste0(DIR_personalizedHLA, &quot;/scripts/make_personalized_HLA_ref.R&quot;) )
@@ -200,7 +198,7 @@ source( paste0(DIR_personalizedHLA, &quot;/scripts/bulk/functions_star.R&quot;) 
 <p><br></p>
 </div>
 <div id="gernerate-personalized-hla-reference-and-annotation-for-each-individual" class="section level2">
-<h2>4. Gernerate personalized HLA reference and annotation for each individual</h2>
+<h2>1.3. Gernerate personalized HLA reference and annotation for each individual</h2>
 <div id="input" class="section level3">
 <h3>Input</h3>
 <ul>
@@ -221,76 +219,74 @@ input_alleles &lt;- read.table(paste0(DIR_personalizedHLA,
 # Get personalized HLA reference and annotation
 bulkRNA_build_personalized_HLA_ref(input_alleles, output_directory=&quot;./&quot; )
 </code></pre>
+<p>Please see <a href="../scripts/bulk/1.build_HLApm.R">example code</a></p>
 <p><br></p>
 </div>
 </div>
-<div id="build-star-indexing" class="section level2">
-<h2>5. build star indexing</h2>
+</div>
+<div id="personalised-mapping" class="section level1">
+<h1>2. Personalised mapping</h1>
+<p><strong>Three steps requred.</strong></p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>Building star index for each allele reference</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Mapping with STAR for each allele</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>Assigning reads to best allele for each sample</li>
+</ol></li>
+</ul>
+<p><br> <strong>For each sample,</strong> <br> <strong>Run 1 and 2 for each allele, and run 3.</strong></p>
+<div id="build-star-index" class="section level2">
+<h2>2.1. Build star index</h2>
 <div id="input-1" class="section level3">
 <h3>Input</h3>
-<ul>
-<li>sample_directory: where all <code>*.fa</code> and <code>*.gtf</code> files for alleles (output from <code>bulkRNA_build_personalized_HLA_ref</code>) for each sample</li>
-<li>run_STAR: a path where <code>STAR</code> installed</li>
-</ul>
+<p>For each allele,<br> <code>*.fa</code> and <code>*.gtf</code> files (output from <code>bulkRNA_build_personalized_HLA_ref</code>)</p>
 </div>
 <div id="output-1" class="section level3">
 <h3>Output</h3>
-<p><code>run_star_index.sh</code> : command lines to build index for all alleles in <code>sample_directory</code>.</p>
+<p>STAR index</p>
 </div>
 <div id="example-1" class="section level3">
 <h3>Example</h3>
-<pre class="r"><code>dir_test=&quot;/lustre/scratch126/humgen/teams/davenport/ws/github_ws/HLApm/scripts/bulk/out/individual_a&quot;
-star_link=&quot;/software/team282/download/STAR-2.7.3a/bin/Linux_x86_64/STAR&quot;
-
-indexing_star(sample_directory=dir_test, run_STAR=star_link)</code></pre>
+<p>Please see <a href="../scripts/bulk/2.1.build_star_index.sh">example code</a> to run</p>
 <p><strong>run STAR indexing</strong></p>
-<pre class="bash"><code>sh run_star_indexing.sh </code></pre>
+<pre class="bash"><code>sh 2.1.build_star_index.sh 1 output_directory A_01_01.fa A_01_01.gtf</code></pre>
 <p><br></p>
 </div>
 </div>
 <div id="star-mapping" class="section level2">
-<h2>6. STAR mapping</h2>
+<h2>2.2. STAR mapping</h2>
 <div id="input-2" class="section level3">
 <h3>Input</h3>
+<p>For each allele,</p>
 <ul>
-<li>run_STAR: a path where <code>STAR</code> installed</li>
-<li>runThreadN: NumberOfThreads</li>
-<li>index_dir: a directory path where star index files are</li>
-<li>fastq_1 and fastq_2 : /path/to/read1 and /path/to/read2</li>
-<li>outFileNamePrefix : /path/to/output/dir/prefi</li>
+<li>$1, runThreadN : NumberOfThreads</li>
+<li>$2, genomeDir : /path/to/output/dir/genome_index, output from 2.1.build_star_index</li>
+<li>$3, fastq_1 : /path/to/read1</li>
+<li>$4, fastq_2 : /path/to/read2</li>
+<li>$5, outFileNamePrefix /path/to/output/dir/prefix</li>
 </ul>
 </div>
 <div id="output-2" class="section level3">
 <h3>Output</h3>
-<ul>
-<li>commands to run star mapping for each allele</li>
-</ul>
+<p>sorted bam and bam index file for each allele</p>
 </div>
 <div id="example-2" class="section level3">
 <h3>Example</h3>
-<p><code>mapping_star_for_single_allele</code> runs for each allele.</p>
-<p>You can run all alleles for each sample with combined commands.</p>
-<pre class="r"><code># for each sample
-
-file_to_write &lt;- &quot;textFile.txt&quot;
-
-run_star_mapping &lt;- c()
-for(a in alleles){
-    index_dir_for_allele = path/of/star_index/for_each_allele
-
-    cmd.to.run.star &lt;- mapping_star_for_single_allele(run_STAR=&quot;STAR&quot;, 
-                                                  runThreadN=4, 
-                                                  index_dir=index_dir_for_allele, 
-                                                  fastq_1, fastq_2, 
-                                                  outFileNamePrefix)
-                                                  
-    run_star_mapping &lt;- rbind(run_star_mapping, cmd.to.run.star)
-}
-writeLines(run_star_mapping, file_to_write)
-</code></pre>
-<p><strong>submit bjobs</strong></p>
-<pre class="bash"><code></code></pre>
+<p>Please see <a href="../scripts/bulk/2.2.star_mapping.sh">example code</a> to run</p>
+<p><br></p>
 </div>
+</div>
+<div id="assign-reads-to-allele" class="section level2">
+<h2>2.3. Assign reads to allele</h2>
+</div>
+</div>
+<div id="delete-this-later" class="section level1">
+<h1>delete this later</h1>
+<p>/lustre/scratch123/hgi/teams/davenport/ws/GitHub/HLA_mapping/gains/alt.4.2.mhc_mapping /lustre/scratch126/humgen/teams/davenport/ws/github_ws/HLApm/scripts/bulk/out/individual_a /lustre/scratch126/humgen/projects/gains_team282/hla/alt.4.2.mhc_mapping/gains8033273 /lustre/scratch126/humgen/teams/davenport/ws/github_ws/HLA_modules/HLA_mapping</p>
 </div>
 
 

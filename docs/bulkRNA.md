@@ -1,12 +1,9 @@
 
 
+# 1.Build HLA personalized reference. 
 
-## 1. input data
 
-
-<br>
-
-## 2. Set a path of a package
+## 1.1. Set a path of a package
 
 * *Set a path of this package with a name __`DIR_personalizedHLA`__*
 * a directory of `scripts` should be under the `DIR_personalizedHLA`
@@ -19,7 +16,7 @@ DIR_personalizedHLA=paste0(yourpath, "/personalisedHLAmapping")
 
 <br>
 
-## 3. Load functions
+## 1.2. Load functions
 
 
 Just running a single script `build_personalized_HLA_ref` can provide personalized HLA reference. 
@@ -39,7 +36,7 @@ All resource for building references loaded !
 
 <br>
 
-## 4. Gernerate personalized HLA reference and annotation for each individual
+## 1.3. Gernerate personalized HLA reference and annotation for each individual
 
 
 ### Input
@@ -64,107 +61,79 @@ bulkRNA_build_personalized_HLA_ref(input_alleles, output_directory="./" )
 
 ```
 
+Please see [example code](../scripts/bulk/1.build_HLApm.R)
+
+
 <br>
 
-## 5. build star indexing 
+# 2. Personalised mapping
+
+__Three steps requred.__ 
+
+- 1. Building star index for each allele reference
+- 2. Mapping with STAR for each allele
+- 3. Assigning reads to best allele for each sample  
+
+<br>
+__For each sample,__ <br>
+__Run 1 and 2 for each allele, and run 3.__
+
+## 2.1. Build star index
 
 
 ### Input
-- sample_directory: where all `*.fa` and `*.gtf` files for alleles (output from `bulkRNA_build_personalized_HLA_ref`) for each sample
-- run_STAR: a path where `STAR` installed
+
+For each allele,<br>
+ `*.fa` and `*.gtf` files (output from `bulkRNA_build_personalized_HLA_ref`) 
 
 
 ### Output
 
-`run_star_index.sh` : command lines to build index for all alleles in `sample_directory`. 
-
-
+STAR index
 
 ### Example
-```R
-dir_test="/lustre/scratch126/humgen/teams/davenport/ws/github_ws/HLApm/scripts/bulk/out/individual_a"
-star_link="/software/team282/download/STAR-2.7.3a/bin/Linux_x86_64/STAR"
 
-indexing_star(sample_directory=dir_test, run_STAR=star_link)
-```
 
+Please see [example code](../scripts/bulk/2.1.build_star_index.sh) to run
 
 __run STAR indexing__
 
 ```bash
-sh run_star_indexing.sh 
+sh 2.1.build_star_index.sh 1 output_directory A_01_01.fa A_01_01.gtf
 ```
 
 <br>
 
-## 6. STAR mapping
+## 2.2. STAR mapping
 
 
 ### Input
 
-- run_STAR: a path where `STAR` installed
-- runThreadN: NumberOfThreads 
-- index_dir: a directory path where star index files are 
-- fastq_1 and fastq_2 : /path/to/read1 and /path/to/read2
-- outFileNamePrefix : /path/to/output/dir/prefi
+For each allele,
+
+- $1, runThreadN : NumberOfThreads
+- $2, genomeDir : /path/to/output/dir/genome_index, output from 2.1.build_star_index
+- $3, fastq_1 : /path/to/read1
+- $4, fastq_2 : /path/to/read2
+- $5, outFileNamePrefix /path/to/output/dir/prefix
 
 
 ### Output
 
-- commands to run star mapping for each allele
-
+sorted bam and bam index file for each allele
 
 
 ### Example
-`mapping_star_for_single_allele` runs for each allele. 
+Please see [example code](../scripts/bulk/2.2.star_mapping.sh) to run
 
-You can run all alleles for each sample with combined commands. 
 
-```R
-# for each sample
-
-file_to_write <- "textFile.sh"
-
-run_star_mapping <- c()
-for(a in alleles){
-    index_dir_for_allele = path/of/star_index/for_each_allele
-
-    cmd.to.run.star <- mapping_star_for_single_allele(run_STAR="STAR", 
-                                                  runThreadN=4, 
-                                                  index_dir=index_dir_for_allele, 
-                                                  fastq_1, fastq_2, 
-                                                  outFileNamePrefix)
-                                                  
-    run_star_mapping <- rbind(run_star_mapping, cmd.to.run.star)
-}
-writeLines(run_star_mapping, file_to_write)
-
-```
-
-__submit bsub__
-```bash
-bsub  ~~~ bash textFile.sh
-```
 
 
 <br>
 
-## 7. merge bam files for each sample
-
-### Input
-input_alleles: Alleles for each sample. Please see [example input](../data/examples/example_input.txt)
-sample_name: single sample from input_alleles
-bam_directory: where individual bam files are (output from `mapping_star_for_single_allele`)
-
-### Output
-
-`sample_name.initial_HLA_mapping.merged.sorted.bam`
+## 2.3. Assign reads to allele
 
 
-### Example
-```R
-merge_bams (input_alleles, sample_name="individual_a", bam_directory="./" )
-```
 
 
 
