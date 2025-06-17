@@ -33,12 +33,10 @@ Please see [here](./HLA_typing.md)
 ## 2. Build personalized reference and annotation 
 
 <br>
-HLA alleles from the [IMGT/HLA database](https://github.com/ANHIG/IMGTHLA) were preprocessed to fill missing exons and UTR regions.
 
-Some alleles in the IMGT/HLA database have (untranslated) exons missing. UTR annotation is absent or variable in different alleles. 
-For instance, the HLA-B gene has 8 exons, which has a stop codon in the 7th exon and a 3’ UTR overlapping with the 8th exon. Reported HLA-B allele sequences in the IMGT don’t have 8th exon (UTR) annotation and some of them have even no sequences of the UTR (sequences at the 7th exon.). Without UTR sequences or UTR annotation, quantification of gene expression can be underestimated. 
-To complete gene sequences and annotation, we extend both 5’ and 3’ sequences of each allele in the IMGT based on primary reference sequences. And we adjusted gene coordinates based on extended allele sequences
-
+To account for incomplete exon and UTR annotations, HLA alleles from the IMGT/HLA database were preprocessed and refined.
+Several alleles in the database lack untranslated exons, and UTR information is often missing or inconsistently annotated. For instance, the HLA-B gene normally comprises 8 exons, with the stop codon located in exon 7 and the 3′ UTR overlapping exon 8. However, many HLA-B allele entries in the IMGT/HLA database omit the 8th exon entirely and, in some cases, even lack sequences corresponding to the 3′ portion of exon 7. Such gaps in annotation can lead to inaccurate quantification of gene expression.
+To overcome these limitations, we extended both the 5′ and 3′ regions of each allele by aligning them with primary reference sequences, thereby generating more complete gene models. Gene coordinates were then adjusted to reflect these extended sequences.
 
 <br>
 
