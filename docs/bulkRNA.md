@@ -136,14 +136,3 @@ Please see [example code](../scripts/bulk/2.2.star_mapping.sh) to run
 
 
 
-
-
-# delete this later
-
-/lustre/scratch123/hgi/teams/davenport/ws/GitHub/HLA_mapping/gains/alt.4.2.mhc_mapping
-/lustre/scratch126/humgen/teams/davenport/ws/github_ws/HLApm/scripts/bulk/out/individual_a
-/lustre/scratch126/humgen/projects/gains_team282/hla/alt.4.2.mhc_mapping/gains8033273
-/lustre/scratch126/humgen/teams/davenport/ws/github_ws/HLA_modules/HLA_mapping
-
-
-
