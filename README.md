@@ -1,6 +1,6 @@
-# PersonalisedHLAmapping
-Personalised HLA mapping to quantify HLA gene expression from scRNA and bulkRNA sequencing data
+# HLApm
 
+**HLA** **P**ersonalized **M**apping (HLApm) for quantifying HLA gene expression from single-cell and bulk RNA sequencing data using personalized reference genomes.
 
 
 * [Introduction](#Introduction)
@@ -85,9 +85,9 @@ wget https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_33/gencod
 
 You are welcome to:
 
-- submit suggestions and bug-reports at: https://github.com/davenportlab/HLApm/issues
+- Submit suggestions or report bugs via our GitHub Issues page: https://github.com/davenportlab/HLApm/issues
 
-- compose a friendly e-mail to: wl2@sanger.ac.uk
+- Reach out by email with any questions or feedback at: wl2@sanger.ac.uk
 
 
 ### to do..
